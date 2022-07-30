@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import {getItem} from '@/helpers/persistanceStorage'
-import Home from '@/views/Home'
-import Login from '@/views/Login'
-import Settings from '@/views/Settings'
+import HomePage from '@/views/HomePage'
+import LoginPage from '@/views/LoginPage'
+import SettingsPage from '@/views/SettingsPage'
+import {isLoggedIn} from '@/helpers/auth'
 
 Vue.use(VueRouter)
 
@@ -11,18 +11,18 @@ const routes = [
     {
         path: '/',
         name: 'home',
-        component: Home,
+        component: HomePage,
         meta: {needAuth: true},
     },
     {
         path: '/login/',
         name: 'login',
-        component: Login,
+        component: LoginPage,
     },
     {
         path: '/settings/',
         name: 'settings',
-        component: Settings,
+        component: SettingsPage,
         meta: {needAuth: true},
     }
 ]
@@ -36,11 +36,12 @@ router.beforeEach((to, from, next) => {
 
     //check if user login
     if (to.matched.some((record) => record.meta.needAuth)) {
-        if (!getItem('token')) {
-            next({
+        if (!isLoggedIn()) {
+            /*next({
                 path: '/login/',
                 query: {redirect: to.fullPath},
-            })
+            })*/
+            next()
         } else {
             next()
         }
