@@ -9,30 +9,23 @@ let instance = axios.create({
     withCredentials: false,
     headers: {
         'X-TenantID': 'ruslanjuno',
-        'Access-Control-Allow-Headers': 'Authorization, Content-Type',
-        'Access-Control-Max-Age': 86400,
+        // 'Access-Control-Allow-Headers': 'Authorization, Content-Type',
+        // 'Access-Control-Max-Age': 86400,
 /*        'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Methods': '*',
         'Access-Control-Allow-Headers': '*'*/
     }
 })
 
-/*axios.interceptors.request.use((config) => {
-    console.log('interceptor request')
-    //const token = getItem('token')
-    //const authorizisationToken = token ? `Token ${token}` : ''
-    /!*if(authorizisationToken){
+instance.interceptors.request.use((config) => {
+    const token = getItem('token')
+    const authorizisationToken = token ? token : ''
+    if(authorizisationToken){
         config.headers['Authorization'] = authorizisationToken
-    }*!/
+    }
     config.headers['X-TenantID'] = 'ruslanjuno'
-    /!*config.headers['Access-Control-Allow-Origin'] = '*'
-    config.headers['Access-Control-Allow-Headers'] = '*'*!/
-    // config.headers['Access-Control-Allow-Credentials'] = true
-    /!*if(config.method === 'post' && getItem('csrftoken')){
-        config.headers['X-CSRFToken'] = getItem('csrftoken')
-    }*!/
     return config
-})*/
+})
 
 instance.interceptors.response.use(
     function (response) {

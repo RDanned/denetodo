@@ -1,7 +1,8 @@
 <template>
   <v-app>
-<!--    <v-navigation-drawer app v-if="isLoggedIn">-->
-    <v-navigation-drawer app>
+    <v-navigation-drawer app v-if="isLoggedIn">
+<!--    <v-navigation-drawer app>-->
+      <user-info />
       <app-menu />
 <!--      <v-list
           dense
@@ -43,19 +44,29 @@
   </v-app>
 </template>
 <script>
+import {mapState} from 'vuex'
+import {getItem} from '@/helpers/persistanceStorage'
+import {mutationTypes as authMutations} from '@/store/modules/auth'
 import AppMenu from '@/components/AppMenu'
-import {isLoggedIn} from '@/helpers/auth'
+import UserInfo from '@/components/UserInfo'
 
 export default {
   name: 'App',
   components: {
-    AppMenu
+    AppMenu,
+    UserInfo
   },
   computed: {
-    isLoggedIn: () => isLoggedIn()
+    ...mapState({
+      isLoggedIn: state => state.auth.isLoggedIn
+    })
   },
-  data: () => ({
-
-  }),
+  mounted() {
+    if(getItem('token')){
+      this.$store.commit(authMutations.setIsLoggedIn, true)
+    } else {
+      this.$store.commit(authMutations.setIsLoggedIn, false)
+    }
+  }
 };
 </script>

@@ -38,8 +38,8 @@ export default {
   name: 'LoginPage',
   data() {
     return {
-      email: '',
-      password: '',
+      email: 'ruslanenwork@gmail.com',
+      password: 'myjunoone2014',
     }
   },
   computed: {
@@ -54,6 +54,7 @@ export default {
           email: this.email,
           password: this.password,
         })
+        .then(() => this.$router.push({name: 'home'}))
     },
   },
 }
