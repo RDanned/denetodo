@@ -7,9 +7,9 @@
       <v-row>
         <v-col cols="12">
           <v-toolbar
-              color="cyan"
-              dark
-              flat
+            color="cyan"
+            dark
+            flat
           >
             <v-toolbar-title>Your Dashboard</v-toolbar-title>
 
@@ -21,8 +21,8 @@
 
             <template v-slot:extension>
               <v-tabs
-                  v-model="tab"
-                  align-with-title
+                v-model="tab"
+                align-with-title
               >
                 <v-tabs-slider color="yellow"></v-tabs-slider>
 
@@ -35,9 +35,6 @@
                 <v-tab>
                   All tasks
                 </v-tab>
-                <v-tab>
-                  <v-icon>mdi-delete</v-icon>
-                </v-tab>
               </v-tabs>
             </template>
           </v-toolbar>
@@ -49,116 +46,50 @@
           <v-tabs-items v-model="tab">
             <v-tab-item>
               <v-card flat>
-                <v-progress-circular
-                    v-if="!tasks"
-                    :size="50"
-                    color="primary"
-                    indeterminate
-                ></v-progress-circular>
-                <v-list v-if="tasks" class="overflow-y-auto" height="350px">
-                  <v-list-item v-for="(task, index) in tasks" :key="index" two-line>
-                    <v-list-item-content>
-                      <v-list-item-title>{{ task.text }}</v-list-item-title>
-                      <v-list-item-subtitle v-if="task.dueDate">
-                        <v-icon>{{mdiClockTimeFiveOutline}}</v-icon>
-                        {{task.dueDate}}
-                      </v-list-item-subtitle>
-                    </v-list-item-content>
-                    <v-list-item-action>
-                      <div class="todo-item-actions-wrapper d-flex justify-space-between align-center">
-                        <v-checkbox
-                            :input-value="task.completed"
-                            color="primary"
-                        ></v-checkbox>
-                        <delete-task :id="task.id"/>
-                      </div>
-                    </v-list-item-action>
-                  </v-list-item>
-                </v-list>
+                <task-list :tasks="currentTasks" />
               </v-card>
             </v-tab-item>
             <v-tab-item>
               <v-card flat>
-                completed
+                <task-list :tasks="completedTasks" />
               </v-card>
             </v-tab-item>
             <v-tab-item>
               <v-card flat>
-                all
-              </v-card>
-            </v-tab-item>
-            <v-tab-item>
-              <v-card flat>
-                deleted
+                <task-list :tasks="allTasks" />
               </v-card>
             </v-tab-item>
           </v-tabs-items>
         </v-col>
       </v-row>
     </v-col>
-
-<!--    <v-col md="6">
-      <v-row>
-        <v-col cols="12">
-          <v-toolbar color="primary" elevation="3" dark rounded="0">
-            <v-toolbar-title>Tasks</v-toolbar-title>
-          </v-toolbar>
-        </v-col>
-        <v-col cols="12">
-          <add-task />
-        </v-col>
-        <v-col cols="12">
-          <v-list class="overflow-y-auto" height="350px">
-            <v-list-item v-for="(task, index) in tasks" :key="index" two-line>
-              <v-list-item-content>
-                <v-list-item-title>{{ task.text }}</v-list-item-title>
-                <v-list-item-subtitle v-if="task.dueDate">
-                  <v-icon>{{mdiClockTimeFiveOutline}}</v-icon>
-                  {{task.dueDate}}
-                </v-list-item-subtitle>
-              </v-list-item-content>
-              <v-list-item-action>
-                <div class="todo-item-actions-wrapper d-flex justify-space-between align-center">
-                  <v-checkbox
-                    :input-value="task.completed"
-                    color="primary"
-                  ></v-checkbox>
-                  <delete-task :id="task.id"/>
-                </div>
-              </v-list-item-action>
-            </v-list-item>
-          </v-list>
-          <v-snackbar
-              v-model="showNotification"
-              :timeout="notificationTimeout"
-          >
-            {{notificationText}}
-          </v-snackbar>
-        </v-col>
-      </v-row>
-    </v-col>-->
     <v-snackbar
         v-model="showNotification"
         :timeout="notificationTimeout"
     >
       {{notificationText}}
     </v-snackbar>
+    <edit-task-window />
   </v-row>
 </template>
 <script>
 import '@/assets/todolist.css'
+import notification from '@/mixins/notification'
 import {actionTypes as todoActions} from '@/store/modules/todo'
 import {mapState} from 'vuex'
 import { mdiClockTimeFiveOutline } from '@mdi/js';
 import AddTask from '@/components/Todo/AddTask'
-import DeleteTask from '@/components/Todo/DeleteTask'
+import EditTaskWindow from '@/components/Todo/EditTaskWindow'
+import TaskList from '@/components/Todo/TaskList'
 
 export default {
   name: 'HomePage',
   components: {
     AddTask,
-    DeleteTask
+    EditTaskWindow,
+    TaskList
   },
+  mixins: [notification],
   data(){
     return {
       tab: null,
@@ -171,16 +102,10 @@ export default {
   },
   computed: {
     ...mapState({
-      tasks: state => state.todo.list,
-    }),
-    showNotification: {
-      get () { return this.$store.state.todo.showNotification},
-      set (value) { this.$store.dispatch(todoActions.setShowNotification, {showNotification: value}) }
-    },
-    notificationText: {
-      get () { return this.$store.state.todo.notificationText},
-      set (value) { this.$store.dispatch(todoActions.setNotificationText, {notificationText: value}) }
-    },
+      allTasks: state => state.todo.list,
+      currentTasks: state => state.todo.list.filter(item => !item.completed),
+      completedTasks: state => state.todo.list.filter(item => item.completed)
+    })
   }
 }
 </script>

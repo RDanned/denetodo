@@ -10,6 +10,7 @@
 </template>
 <script>
 import {actionTypes as todoActions} from '@/store/modules/todo'
+import notification from '@/mixins/notification'
 
 export default {
   props: {
@@ -17,16 +18,7 @@ export default {
       required: true
     }
   },
-  computed: {
-    showNotification: {
-      get () { return this.$store.state.todo.showNotification},
-      set (value) { this.$store.dispatch(todoActions.setShowNotification, {showNotification: value}) }
-    },
-    notificationText: {
-      get () { return this.$store.state.todo.notificationText},
-      set (value) { this.$store.dispatch(todoActions.setNotificationText, {notificationText: value}) }
-    },
-  },
+  mixins: [notification],
   methods: {
     deleteTask(){
       this.$store.dispatch(todoActions.deleteTask, {id: this.id}).then(() => {

@@ -3,7 +3,8 @@ import todoApi from '@/api/todo'
 const state = {
     list: [],
     showNotification: false,
-    notificationText: ''
+    notificationText: '',
+    editTask: null
 }
 
 export const mutationTypes = {
@@ -11,7 +12,8 @@ export const mutationTypes = {
     addTask: '[todo] Add task',
     deleteTask: '[todo] Delete todo task',
     setShowNotification: '[todo] Set show notification',
-    setNotificationText: '[todo] Set notification text'
+    setNotificationText: '[todo] Set notification text',
+    setEditTask: '[todo] Set edit task'
 }
 
 export const actionTypes = {
@@ -20,7 +22,8 @@ export const actionTypes = {
     deleteTask: '[todo] Delete todo task',
     updateTask: '[todo] Update todo task',
     setShowNotification: '[todo] Set show notification',
-    setNotificationText: '[todo] Set notification text'
+    setNotificationText: '[todo] Set notification text',
+    setEditTask: '[todo] Start edit task'
 }
 
 const mutations = {
@@ -34,11 +37,15 @@ const mutations = {
         state.list = state.list.filter((item) => item.id !== payload.id)
     },
     [mutationTypes.setShowNotification](state, payload){
-        state.showNotification = payload.showNotification
+        state.showNotification = payload
     },
     [mutationTypes.setNotificationText](state, payload){
-        state.notificationText = payload.notificationText
-    }
+        state.notificationText = payload
+    },
+    [mutationTypes.setEditTask](state, payload) {
+        state.editTask = payload.editTask
+    },
+
 }
 
 const actions = {
@@ -67,17 +74,35 @@ const actions = {
             })
         })
     },
-    [actionTypes.setShowNotification](context, {showNotification}){
+    [actionTypes.setShowNotification](context, showNotification){
         return new Promise(resolve => {
-            context.commit(mutationTypes.setShowNotification, {showNotification})
+            context.commit(mutationTypes.setShowNotification, showNotification)
             resolve()
         })
     },
-    [actionTypes.setNotificationText](context, {notificationText}){
+    [actionTypes.setNotificationText](context, notificationText){
+        context.commit(mutationTypes.setNotificationText, notificationText)
         return new Promise(resolve => {
-            context.commit(mutationTypes.setNotificationText, {notificationText})
+            context.commit(mutationTypes.setNotificationText, notificationText)
             resolve()
         })
+    },
+    [actionTypes.setEditTask](context, {editTask}){
+        return new Promise(resolve => {
+            context.commit(mutationTypes.setEditTask, {editTask})
+            resolve()
+        })
+    },
+    [actionTypes.updateTask](context, {task}){
+        return todoApi.updateTask(task)
+                .then(() => {
+                    context.state.list = context.state.list.map(item => {
+                        if(item.id === task.id) item = task
+                        return item
+                    })
+
+                    context.commit(mutationTypes.setTodoList, {list: context.state.list})
+                })
     }
 }
 

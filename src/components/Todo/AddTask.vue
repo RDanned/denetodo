@@ -21,6 +21,7 @@
 <script>
 import {actionTypes as todoActions} from '@/store/modules/todo'
 import DueDatepicker from '@/components/Todo/DueDatepicker'
+import notification from '@/mixins/notification'
 
 export default {
   components: {
@@ -33,16 +34,7 @@ export default {
       menu: false
     }
   },
-  computed: {
-    showNotification: {
-      get () { return this.$store.state.todo.showNotification},
-      set (value) { this.$store.dispatch(todoActions.setShowNotification, {showNotification: value}) }
-    },
-    notificationText: {
-      get () { return this.$store.state.todo.notificationText},
-      set (value) { this.$store.dispatch(todoActions.setNotificationText, {notificationText: value}) }
-    },
-  },
+  mixins: [notification],
   methods: {
     addTask() {
       this.$store.dispatch(todoActions.addTask, {text: this.text, dueDate: this.dueDate}).then(() => {

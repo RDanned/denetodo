@@ -1,6 +1,7 @@
 import axios from '@/api/axios'
 
-/*
+
+//const getTasks = () => axios.get('todolist')
 const getTasks = () => new Promise((resolve) => resolve({
     data: [
         {
@@ -37,9 +38,6 @@ const getTasks = () => new Promise((resolve) => resolve({
         }
     ]
 }))
-*/
-
-const getTasks = () => axios.get('todolist')
 
 /*const addTask = (data) => {
     if(!data.dueDate.length) data.dueDate = 'None'
@@ -50,8 +48,14 @@ const addTask = () => new Promise((resolve) => resolve())
 //const deleteTask = (id) => axios.delete(`todolist/${id}`)
 const deleteTask = () => new Promise((resolve) => resolve())
 
+//const updateTask = (task) => axios.put(`todolist/${task.id}`, task)
+const updateTask = (task) => new Promise((resolve) => resolve({
+    data: task
+}))
+
 export default {
     addTask,
     deleteTask,
-    getTasks
+    getTasks,
+    updateTask
 }

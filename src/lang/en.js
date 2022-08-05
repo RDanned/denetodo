@@ -23,7 +23,8 @@ export default {
     "task_completed_mess": "Task is completed",
   },
   "settings_page": {
-    "title": "Settings page"
+    "title": "Settings page",
+    "lorem_ipsum": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eleifend posuere mattis. Etiam aliquam id orci aliquet mollis. Sed vitae arcu auctor, laoreet est non, placerat ligula. Fusce gravida sodales risus. Duis faucibus erat in vestibulum vestibulum. Pellentesque ac tellus in sem ullamcorper placerat id vel elit. Donec rutrum mollis turpis, lacinia pretium est interdum ac. Nulla felis diam, molestie vitae tellus nec, congue consequat odio. Nam nunc magna, dictum vitae nibh rhoncus, ullamcorper vulputate leo. Donec tincidunt risus nec felis facilisis, sed finibus mauris blandit. Pellentesque lorem erat, tincidunt nec neque quis, iaculis tincidunt leo. Vivamus convallis risus a dictum placerat. Nulla ac sem eu massa varius efficitur."
   },
   "login_page": {
     "title": "Login"
