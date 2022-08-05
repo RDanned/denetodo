@@ -60,7 +60,6 @@ const actions = {
                 })
                 .catch(() => {
                     context.commit(mutationTypes.loginFailed)
-                    console.log('login failed')
                 })
         })
     },

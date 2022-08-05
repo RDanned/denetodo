@@ -36,7 +36,6 @@ instance.interceptors.response.use(
             router.push({name: 'login'})
             clearStorage()
         } else {
-            console.log('error')
             return Promise.reject(error)
         }
         return Promise.reject(error)

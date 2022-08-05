@@ -37,10 +37,10 @@ router.beforeEach((to, from, next) => {
     //check if user login
     if (to.matched.some((record) => record.meta.needAuth)) {
         if (!isLoggedIn()) {
-            /*next({
+            next({
                 path: '/login/',
                 query: {redirect: to.fullPath},
-            })*/
+            })
             next()
         } else {
             next()
