@@ -29,7 +29,7 @@ export default {
     change(){
       this.$store.dispatch(todoActions.updateTask, {task: this.form})
           .then(() => {
-            this.notificationText = 'Task is updated'
+            this.notificationText = this.$t('todo.task_updated_mess')
             this.showNotification = true
           })
     }

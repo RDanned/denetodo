@@ -15,12 +15,27 @@ export default {
   "home_page": {
     "title": "Home page",
     "tasks": "Tasks",
-    "due_date": "dueDate",
-    "date": "Date",
+  },
+  "todo": {
+    "no_tasks_title": "No tasks",
+    "edit_task_title": "Edit task",
+    "tasks_all_deleted_mess": "All tasks are deleted",
     "task_deleted_mess": "Task is deleted",
     "task_updated_mess": "Task is updated",
     "task_created_mess": "Task is created",
     "task_completed_mess": "Task is completed",
+    "task_text": "Task text",
+    "due_date": "Due date",
+    "all_tasks_title": "All tasks",
+    "current_tasks_title": "Current tasks",
+    "completed_tasks_title": "Completed tasks",
+    "form": {
+      "date": "Date",
+      "field_required": "{field_name} is required",
+      "field_length": "{field_name} must be less than {field_length} characters",
+      "save_btn": "Save",
+      "cancel_btn": "Cancel"
+    }
   },
   "settings_page": {
     "title": "Settings page",

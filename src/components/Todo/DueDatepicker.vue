@@ -11,7 +11,8 @@
     <template v-slot:activator="{ on, attrs }">
       <v-text-field
           v-model="date"
-          label="Date"
+          :value="value"
+          :label="$t('todo.form.date')"
           persistent-hint
           prepend-icon="mdi-calendar"
           v-bind="attrs"
@@ -21,6 +22,7 @@
     </template>
     <v-date-picker
         v-model="date"
+        :value="value"
         no-title
         @input="menu1 = false"
     ></v-date-picker>
@@ -49,7 +51,6 @@ export default {
       this.$emit('input', this.dateFormatted)
     },
   },
-
   methods: {
     formatDate (date) {
       if (!date) return null

@@ -32,14 +32,21 @@
           </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
+      <v-list-item>
+        <v-list-item-content>
+          <language-switcher />
+        </v-list-item-content>
+      </v-list-item>
     </v-list-item-group>
   </v-list>
 </template>
 <script>
 import {actionTypes} from '@/store/modules/auth'
+import LanguageSwitcher from '@/components/LanguageSwitcher'
 
 export default {
   name: 'AppMenu',
+  components: {LanguageSwitcher},
   data: () =>({
     activeItem: 0
   }),
@@ -60,8 +67,8 @@ export default {
           },
         },
         {
-          title: 'Settings',
-          subtitle: 'Settings page',
+          title: this.$t('sidebar.menu.settings_item.title'),
+          subtitle: this.$t('sidebar.menu.settings_item.subtitle'),
           route: {
             name: 'settings',
           },

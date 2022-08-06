@@ -11,12 +11,12 @@
             dark
             flat
           >
-            <v-toolbar-title>Your Dashboard</v-toolbar-title>
+            <v-toolbar-title>{{$t('home_page.tasks')}}</v-toolbar-title>
 
             <v-spacer></v-spacer>
 
-            <v-btn icon>
-              <v-icon>mdi-magnify</v-icon>
+            <v-btn @click="deleteAllTasks" icon>
+              <v-icon>mdi-delete</v-icon>
             </v-btn>
 
             <template v-slot:extension>
@@ -27,13 +27,13 @@
                 <v-tabs-slider color="yellow"></v-tabs-slider>
 
                 <v-tab>
-                  Current tasks
+                  {{$t('todo.current_tasks_title')}}
                 </v-tab>
                 <v-tab>
-                  Completed tasks
+                  {{$t('todo.completed_tasks_title')}}
                 </v-tab>
                 <v-tab>
-                  All tasks
+                  {{$t('todo.all_tasks_title')}}
                 </v-tab>
               </v-tabs>
             </template>
@@ -106,6 +106,15 @@ export default {
       currentTasks: state => state.todo.list.filter(item => !item.completed),
       completedTasks: state => state.todo.list.filter(item => item.completed)
     })
+  },
+  methods: {
+    deleteAllTasks(){
+      this.$store.dispatch(todoActions.deleteAllTasks)
+          .then(() => {
+            this.notificationText = this.$t('todo.tasks_all_deleted_mess')
+            this.showNotification = true
+          })
+    }
   }
 }
 </script>

@@ -18,7 +18,7 @@
     </v-list-item>
   </v-list>
   <div v-else>
-    No tasks
+    {{$t('todo.no_tasks_title')}}
   </div>
 </template>
 <script>

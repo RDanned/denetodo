@@ -22,7 +22,7 @@ export default {
   methods: {
     deleteTask(){
       this.$store.dispatch(todoActions.deleteTask, {id: this.id}).then(() => {
-        this.notificationText = 'Task is deleted'
+        this.notificationText = this.$t('todo.task_deleted_mess')
         this.showNotification = true
       })
     }

@@ -23,12 +23,13 @@ export const actionTypes = {
     updateTask: '[todo] Update todo task',
     setShowNotification: '[todo] Set show notification',
     setNotificationText: '[todo] Set notification text',
-    setEditTask: '[todo] Start edit task'
+    setEditTask: '[todo] Start edit task',
+    deleteAllTasks: '[todo] Delete all tasks'
 }
 
 const mutations = {
     [mutationTypes.setTodoList](state, payload) {
-        state.list = payload.list
+        state.list = payload
     },
     [mutationTypes.addTask](state, payload) {
         state.list = [...state.list, payload]
@@ -52,7 +53,7 @@ const actions = {
     [actionTypes.getTodoList](context){
       return new Promise((resolve) => {
           todoApi.getTasks().then(response => {
-              context.commit(mutationTypes.setTodoList, {list: response.data})
+              context.commit(mutationTypes.setTodoList, response.data)
               resolve()
           })
       })
@@ -101,8 +102,14 @@ const actions = {
                         return item
                     })
 
-                    context.commit(mutationTypes.setTodoList, {list: context.state.list})
+                    context.commit(mutationTypes.setTodoList, context.state.list)
                 })
+    },
+    [actionTypes.deleteAllTasks](context){
+        return new Promise(resolve => {
+            context.commit(mutationTypes.setTodoList, [])
+            resolve()
+        })
     }
 }
 

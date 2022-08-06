@@ -1,4 +1,4 @@
-export default{
+export default {
   "sidebar": {
     "menu": {
       "home_item": {
@@ -13,7 +13,29 @@ export default{
     "logout_btn": "Odhlášení"
   },
   "home_page": {
-    "title": "Úvodní stránka"
+    "title": "Úvodní stránka",
+    "tasks": "Úkoly",
+  },
+  "todo": {
+    "no_tasks_title": "Žádné úkoly",
+    "edit_task_title": "Upravit úkol",
+    "tasks_all_deleted_mess": "Všechny úkoly jsou odstraněny",
+    "task_deleted_mess": "Úkol je odstraněn",
+    "task_updated_mess": "Úkol je aktualizován",
+    "task_created_mess": "Úkol je vytvořen",
+    "task_completed_mess": "Úkol is dokončen",
+    "task_text": "Text úkolu",
+    "due_date": "Datum splatnosti",
+    "all_tasks_title": "Všechny úkoly",
+    "current_tasks_title": "Aktuální úkoly",
+    "completed_tasks_title": "Dokončené úkoly",
+    "form": {
+      "date": "Datum",
+      "field_required": "{field_name} je vyžadováno",
+      "field_length": "{field_name} musí být menší než {field_length} znaků",
+      "save_btn": "Uložit",
+      "cancel_btn": "Zrušit"
+    }
   },
   "settings_page": {
     "title": "Stránka Nastavení",
