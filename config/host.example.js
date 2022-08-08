@@ -1,3 +1,2 @@
-const host = 'http://localhost'
-
-export default host
+export const host = 'http://localhost'
+export const tenantId = 'testjuno'
