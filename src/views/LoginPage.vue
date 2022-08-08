@@ -38,8 +38,8 @@ export default {
   name: 'LoginPage',
   data() {
     return {
-      email: 'ruslanenwork@gmail.com',
-      password: 'myjunoone2014',
+      email: '',
+      password: '',
     }
   },
   computed: {
